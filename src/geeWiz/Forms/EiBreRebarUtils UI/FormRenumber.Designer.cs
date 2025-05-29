@@ -1,4 +1,4 @@
-﻿namespace NO.RebarUtils
+﻿namespace geeWiz.RebarUtils
 {
     partial class FormRenumber
     {

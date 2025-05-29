@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Autodesk.Revit.DB;
 
-namespace NO.RebarUtils
+namespace geeWiz.RebarUtils
 {
     public partial class FormRenumber : System.Windows.Forms.Form
     {
