@@ -250,9 +250,31 @@ namespace geeWiz
             // Add Panel3 to the tab
             var ribbonPanel3 = uiCtlApp.Ext_AddRibbonPanelToTab(Globals.AddinName, PANEL3_NAME);
 
+            #region Construct PulldownButton data
+
+            // Panel 3 - Add Rebar Visibility pulldown
+            var pullDownRebarVisibility = ribbonPanel3.Ext_AddPulldownButton(
+                buttonName: "Rebar Visibility",
+                nameSpace: "geeWiz.Cmds_RebarVisibility");
+            #endregion
+
+            #region RebarRenumber
             // Panel 3 - Add Cmd_About button
             ribbonPanel3.Ext_AddPushButton<geeWiz.Cmds_Rebar.Cmd_Renumber>(
-                buttonName: "Renumber", availability: gAva.ZeroDoc);
+                buttonName: "Renumber", availability: gAva.Document);
+            #endregion
+
+            #region Pulldown - RebarVisiblity
+
+            // Add pushbuttons to RebarVisibility
+            pullDownRebarVisibility.Ext_AddPushButton<geeWiz.Cmds_RebarVisibility.Cmd_SetUnobscuredInView>(
+                buttonName: "Set Unobscured", availability: gAva.Document);
+
+            pullDownRebarVisibility.Ext_AddPushButton<geeWiz.Cmds_RebarVisibility.Cmd_SetObscuredInView>(
+                buttonName: "Set Obscured", availability: gAva.Document);
+
+            #endregion
+
             #endregion
             // Return succeeded
             return Result.Succeeded;
