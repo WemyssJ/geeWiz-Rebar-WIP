@@ -22,6 +22,7 @@ namespace geeWiz
         // Ribbon construction constants
         public const string PANEL1_NAME = "General";
         public const string PANEL2_NAME = "Tools";
+        public const string PANEL3_NAME = "Rebar";
 
         #endregion
 
@@ -244,6 +245,15 @@ namespace geeWiz
 
             #endregion
 
+            #region Construct Panel 3
+
+            // Add Panel3 to the tab
+            var ribbonPanel3 = uiCtlApp.Ext_AddRibbonPanelToTab(Globals.AddinName, PANEL3_NAME);
+
+            // Panel 3 - Add Cmd_About button
+            ribbonPanel3.Ext_AddPushButton<geeWiz.Cmds_Rebar.Cmd_Renumber>(
+                buttonName: "Renumber", availability: gAva.ZeroDoc);
+            #endregion
             // Return succeeded
             return Result.Succeeded;
         }
