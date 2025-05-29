@@ -123,5 +123,99 @@ namespace geeWiz.Cmds_RebarVisibility
         }
     } //class
 
+    //Set the attributes
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+
+    public class Cmd_SetSolidInView : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            Document doc = commandData.Application.ActiveUIDocument.Document;
+            UIDocument uidoc = commandData.Application.ActiveUIDocument;
+            
+            View3D view = doc.ActiveView as View3D;
+
+            if(view == null)
+            {
+                TaskDialog.Show("Warning", "Active view must be a 3D view.");
+                return Result.Failed;
+            }
+
+
+            List<Element> rebars = RebarSelectHelper.GetSelectedOrAll(uidoc);
+            using (Transaction t3 = new Transaction(doc, "Set Solid in View"))
+            {
+                t3.Start();
+                foreach (Element rebar in rebars)
+                {
+                    if (rebar is RebarInSystem)
+                    {
+                        RebarInSystem r = (RebarInSystem)rebar;
+                        if (!r.IsSolidInView(view))
+                        {
+                            r.SetSolidInView(view, true);
+                        }
+                    }
+                    else if (rebar is Rebar)
+                    {
+                        Rebar r = (Rebar)rebar;
+                        if (!r.IsSolidInView(view))
+                        {
+                            r.SetSolidInView(view, true);
+                        }
+                    }
+                }
+                t3.Commit();
+            }
+            return Result.Succeeded;
+        }
+    } //class
+
+
+    //Set the attributes
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+
+    public class Cmd_SetNotSolidInView : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            Document doc = commandData.Application.ActiveUIDocument.Document;
+            UIDocument uidoc = commandData.Application.ActiveUIDocument;
+            View3D view = doc.ActiveView as View3D;
+            if (view == null)
+            {
+                TaskDialog.Show("Warning", "Active view must be a 3D view.");
+                return Result.Failed;
+            }
+            List<Element> rebars = RebarSelectHelper.GetSelectedOrAll(uidoc);
+            using (Transaction t4 = new Transaction(doc, "Set Not Solid in View"))
+            {
+                t4.Start();
+                foreach (Element rebar in rebars)
+                {
+                    if (rebar is RebarInSystem)
+                    {
+                        RebarInSystem r = (RebarInSystem)rebar;
+                        if (r.IsSolidInView(view))
+                        {
+                            r.SetSolidInView(view, false);
+                        }
+                    }
+                    else if (rebar is Rebar)
+                    {
+                        Rebar r = (Rebar)rebar;
+                        if (r.IsSolidInView(view))
+                        {
+                            r.SetSolidInView(view, false);
+                        }
+                    }
+                }
+                t4.Commit();
+            }
+            return Result.Succeeded;
+        }
+    } //class
 
 } //namespace
