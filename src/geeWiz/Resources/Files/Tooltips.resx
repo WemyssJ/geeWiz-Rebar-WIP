@@ -207,6 +207,24 @@ Condition(s) to run:
 Shift + click:
 Exports all sheet names and numbers to the template.</value>
   </data>
+  <data name="RebarVisibility" xml:space="preserve">
+    <value>Tools relating to Rebar Visibility</value>
+  </data>
+  <data name="RebarVisibility_SetNotSolidInView" xml:space="preserve">
+    <value>Sets all rebar to be linework in view (depreciated in RVT23+)</value>
+  </data>
+  <data name="RebarVisibility_SetObscuredInView" xml:space="preserve">
+    <value>Sets all rebar to be obscured in view</value>
+  </data>
+  <data name="RebarVisibility_SetSolidInView" xml:space="preserve">
+    <value>Sets all rebar to be solid in view (depreciated in RVT23+)</value>
+  </data>
+  <data name="RebarVisibility_SetUnobscuredInView" xml:space="preserve">
+    <value>Sets all rebar to be unobscured in view</value>
+  </data>
+  <data name="Rebar_Renumber" xml:space="preserve">
+    <value>Changes 'Rebar Number' (BM) based on user input</value>
+  </data>
   <data name="Revision" xml:space="preserve">
     <value>Tools relating to revision management.</value>
   </data>

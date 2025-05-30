@@ -229,6 +229,60 @@ namespace geeWiz.Resources.Files {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changes &apos;Rebar Number&apos; (BM) based on user input.
+        /// </summary>
+        internal static string Rebar_Renumber {
+            get {
+                return ResourceManager.GetString("Rebar_Renumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tools relating to Rebar Visibility.
+        /// </summary>
+        internal static string RebarVisibility {
+            get {
+                return ResourceManager.GetString("RebarVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets all rebar to be linework in view (depreciated in RVT23+).
+        /// </summary>
+        internal static string RebarVisibility_SetNotSolidInView {
+            get {
+                return ResourceManager.GetString("RebarVisibility_SetNotSolidInView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets all rebar to be obscured in view.
+        /// </summary>
+        internal static string RebarVisibility_SetObscuredInView {
+            get {
+                return ResourceManager.GetString("RebarVisibility_SetObscuredInView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets all rebar to be solid in view (depreciated in RVT23+).
+        /// </summary>
+        internal static string RebarVisibility_SetSolidInView {
+            get {
+                return ResourceManager.GetString("RebarVisibility_SetSolidInView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets all rebar to be unobscured in view.
+        /// </summary>
+        internal static string RebarVisibility_SetUnobscuredInView {
+            get {
+                return ResourceManager.GetString("RebarVisibility_SetUnobscuredInView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tools relating to revision management..
         /// </summary>
         internal static string Revision {
