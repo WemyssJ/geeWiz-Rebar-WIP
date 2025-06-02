@@ -123,6 +123,8 @@ namespace geeWiz.Cmds_RebarVisibility
         }
     } //class
 
+    #region Redundant in 2024+
+    /*
     //Set the attributes
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
@@ -217,5 +219,6 @@ namespace geeWiz.Cmds_RebarVisibility
             return Result.Succeeded;
         }
     } //class
-
+    */
+    #endregion
 } //namespace
