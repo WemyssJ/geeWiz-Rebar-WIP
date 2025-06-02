@@ -273,11 +273,15 @@ namespace geeWiz
             pullDownRebarVisibility.Ext_AddPushButton<geeWiz.Cmds_RebarVisibility.Cmd_SetObscuredInView>(
                 buttonName: "Set Obscured", availability: gAva.Document);
 
-            pullDownRebarVisibility.Ext_AddPushButton<geeWiz.Cmds_RebarVisibility.Cmd_SetSolidInView>(
-                buttonName: "Set Solid in View", availability: gAva.Document);
+            #region Redundant in 2024+
+            /*
+           pullDownRebarVisibility.Ext_AddPushButton<geeWiz.Cmds_RebarVisibility.Cmd_SetSolidInView>(
+               buttonName: "Set Solid in View", availability: gAva.Document);
 
-            pullDownRebarVisibility.Ext_AddPushButton<geeWiz.Cmds_RebarVisibility.Cmd_SetNotSolidInView>(
-                buttonName: "Set Not Solid in View", availability: gAva.Document);
+           pullDownRebarVisibility.Ext_AddPushButton<geeWiz.Cmds_RebarVisibility.Cmd_SetNotSolidInView>(
+               buttonName: "Set Not Solid in View", availability: gAva.Document);
+            */
+            #endregion
 
             #endregion
 
