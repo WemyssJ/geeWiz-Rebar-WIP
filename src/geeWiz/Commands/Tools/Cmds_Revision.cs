@@ -1,4 +1,4 @@
-﻿// System
+// System
 using System.IO;
 // Revit API
 using Autodesk.Revit.Attributes;
@@ -215,6 +215,10 @@ namespace geeWiz.Cmds_Revision
             var uiDoc = uiApp.ActiveUIDocument;
             var doc = uiDoc.Document;
 
+            // Get Project Number
+            ProjectInfo projInfo = doc.ProjectInformation;
+
+
             // Select a revision
             var formResultRevision = doc.Ext_SelectRevisions(sorted: true);
             if (formResultRevision.Cancelled) { return Result.Cancelled; }
@@ -227,26 +231,67 @@ namespace geeWiz.Cmds_Revision
 
             // Construct doctans, header row
             var matrix = new List<List<string>>();
-            var header = new List<string>() { "Number", "Name", "Current"};
-            var revisionIds = new List<ElementId>();
+            var header = new List<string>() { "Document No.", "Document Name", "Current Revision" };
 
-            foreach (var revision in revisions)
+            // Pair revision with its date string
+            var revisionPairs = revisions
+                .Select(r => new
+                {
+                    Revision = r,
+                    DateString = r.Ext_RevisionDate()
+                })
+                .OrderBy(pair =>
+                {
+                    // Try to parse date (format: dd.MM.yy), fallback to string sort
+                    if (DateTime.TryParseExact(pair.DateString, "dd.MM.yy", null, System.Globalization.DateTimeStyles.None, out var date))
+                        return date;
+                    return DateTime.MaxValue; // push unparseable dates to end
+                })
+                .ToList();
+
+            // Group revision IDs by date string
+            var groupedRevisionDict = revisionPairs
+                .GroupBy(p => p.DateString)
+                .OrderBy(g =>
+                {
+                    if (DateTime.TryParseExact(g.Key, "dd.MM.yy", null, System.Globalization.DateTimeStyles.None, out var date))
+                        return date;
+                    return DateTime.MaxValue;
+                })
+                .ToDictionary(g => g.Key, g => g.Select(p => p.Revision.Id).ToList());
+
+            // Update header and grouped revision list
+            var groupedRevisionDates = groupedRevisionDict.Keys.ToList();
+            var groupedRevisionIds = groupedRevisionDict.Values.ToList();
+
+            foreach (var date in groupedRevisionDates)
             {
-                header.Add(revision.Ext_ToRevisionKey());
-                revisionIds.Add(revision.Id);
+                header.Add(date);
             }
+
+
 
             // Add header row to matrix
             matrix.Add(header);
 
             // For each sheet
+            string ProjectNumber = doc.ProjectInformation.LookupParameter("Project Number")?.AsString() ?? "";
             foreach (var sheet in sheets)
             {
+                string Originator = GetParameterValue(sheet, "Originator");
+                string FunctionalBreakdown = GetParameterValue(sheet, "Functional Breakdown");
+                string SpatialBreakdown = GetParameterValue(sheet, "Spatial Breakdown");
+                string Form = GetParameterValue(sheet, "Form");
+                string Discipline = GetParameterValue(sheet, "Discipline");
+
+                string combinedSheetName = $"{ProjectNumber}-{Originator}-{FunctionalBreakdown}-{SpatialBreakdown}-{Form}-{Discipline}-{sheet.SheetNumber}";
+
                 // New row with sheet number and name
                 var row = new List<string>()
                 {
-                    sheet.SheetNumber,
-                    sheet.Name
+                    combinedSheetName,
+                    sheet.Name,
+
                 };
 
                 // Get current revision
@@ -260,12 +305,14 @@ namespace geeWiz.Cmds_Revision
                 }
 
                 // For each revision
-                foreach (var id in revisionIds)
+                foreach (var idGroup in groupedRevisionIds)
                 {
-                    // Add its number to the row for the sheet
-                    var revisionNumber = sheet.GetRevisionNumberOnSheet(id);
-                    revisionNumber ??= "";
-                    row.Add(revisionNumber);
+                    // Concatenate all revision numbers for the same date
+                    var combined = string.Join(",", idGroup
+                        .Select(id => sheet.GetRevisionNumberOnSheet(id))
+                        .Where(rn => !string.IsNullOrEmpty(rn)));
+
+                    row.Add(string.IsNullOrEmpty(combined) ? "" : combined);
                 }
 
                 // Add row to matrix
@@ -276,7 +323,8 @@ namespace geeWiz.Cmds_Revision
             var directoryResult = gFrm.Custom.SelectDirectoryPath("Select where to save the transmittal");
             if (directoryResult.Cancelled) { return Result.Cancelled; }
             var directoryPath = directoryResult.Object;
-            var filePath = Path.Combine(directoryPath, "Doctrans.xlsx");
+            var dateString = DateTime.Now.ToString("yyyyMMdd");
+            var filePath = Path.Combine(directoryPath, $"{ProjectNumber}-Doctrans-{dateString}.xlsx");
 
             // Accessibility check if it exists
             if (File.Exists(filePath))
@@ -315,7 +363,7 @@ namespace geeWiz.Cmds_Revision
                 worksheet.Row(1).Height = 150;
 
                 // For each column...
-                for (int i = 1; i <= revisionIds.Count + 3; i++)
+                for (int i = 1; i <= groupedRevisionIds.Count + 3; i++)
                 {
                     // First 3 columns set to 30 wide
                     if (i < 3)
@@ -346,6 +394,12 @@ namespace geeWiz.Cmds_Revision
 
             // Final message to user, click bubble to open file
             return gFrm.Custom.BubbleMessage(title: "Doctrans written", filePath: filePath);
+        }
+        private string GetParameterValue(Element element, string paramName)
+        {
+            var param = element.LookupParameter(paramName);
+            if (param == null) return "";
+            return param.HasValue ? param.AsValueString() ?? param.AsString() ?? "" : "";
         }
     }
 
