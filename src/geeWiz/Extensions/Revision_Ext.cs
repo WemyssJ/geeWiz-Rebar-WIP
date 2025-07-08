@@ -1,4 +1,4 @@
-﻿// The class belongs to the extensions namespace
+// The class belongs to the extensions namespace
 // Revision revision.ExtensionMethod()
 namespace geeWiz.Extensions
 {
@@ -30,6 +30,15 @@ namespace geeWiz.Extensions
             {
                 return $"{revision.SequenceNumber}: {revision.RevisionDate} - {revision.Description}";
             }
+        }
+
+        public static string Ext_RevisionDate(this Revision revision, bool includeId = false)
+        {
+            // Null catch
+            if (revision is null) { return "???"; }
+
+            return $"{revision.RevisionDate}";
+
         }
     }
 
