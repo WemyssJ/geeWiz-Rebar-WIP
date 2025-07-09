@@ -1,4 +1,5 @@
-﻿using System;
+// FormRenumber.cs
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,7 +10,6 @@ namespace geeWiz.RebarUtils
 {
     public partial class FormRenumber : System.Windows.Forms.Form
     {
-        // Constructor with optional preselected values
         public FormRenumber(Document doc, string[] partitions, Dictionary<string, string[]> rebarNumbers, string selectedPartition = null, int? selectedRebarNumber = null)
         {
             InitializeComponent();
@@ -19,7 +19,6 @@ namespace geeWiz.RebarUtils
 
             comboPartition.Items.AddRange(partitions);
 
-            // Select initial partition
             if (!string.IsNullOrEmpty(selectedPartition) && partitions.Contains(selectedPartition))
             {
                 comboPartition.SelectedItem = selectedPartition;
@@ -29,11 +28,11 @@ namespace geeWiz.RebarUtils
                 comboPartition.SelectedItem = partitions.FirstOrDefault();
             }
 
-            // Populate rebar numbers for selected partition
             if (comboPartition.SelectedItem != null)
             {
                 string selectedPart = comboPartition.SelectedItem.ToString();
-                comboRebarNumber.Items.AddRange(rebarNumbers[selectedPart]);
+                comboRebarNumber.Items.Clear();
+                comboRebarNumber.Items.AddRange(rebarNumbers[selectedPart].Distinct().ToArray());
 
                 if (selectedRebarNumber.HasValue)
                 {
@@ -46,7 +45,6 @@ namespace geeWiz.RebarUtils
             }
         }
 
-        // Properties
         private Document doc { get; set; }
         private Dictionary<string, string[]> rebarNumbers { get; set; }
 
@@ -77,21 +75,13 @@ namespace geeWiz.RebarUtils
 
         public int toNumber { get; set; }
 
-        // Events
         private void comboPartition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
+            string selectedPartition = comboPartition.Text;
+            comboRebarNumber.Items.Clear();
+            if (rebarNumbers.ContainsKey(selectedPartition))
             {
-                string selectedPartition = comboPartition.Text;
-                comboRebarNumber.Items.Clear();
-                if (rebarNumbers.ContainsKey(selectedPartition))
-                {
-                    comboRebarNumber.Items.AddRange(rebarNumbers[selectedPartition]);
-                }
-            }
-            catch
-            {
-                comboRebarNumber.Items.Clear();
+                comboRebarNumber.Items.AddRange(rebarNumbers[selectedPartition].Distinct().ToArray());
             }
         }
 
