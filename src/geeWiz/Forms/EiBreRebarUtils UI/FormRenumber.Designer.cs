@@ -10,6 +10,7 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,7 +23,7 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support — do not modify
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -71,7 +72,7 @@
             this.comboPartition.Name = "comboPartition";
             this.comboPartition.Size = new System.Drawing.Size(121, 21);
             this.comboPartition.TabIndex = 3;
-            this.comboPartition.SelectedIndexChanged += new System.EventHandler(this.comboPartition_SelectedIndexChanged);
+            this.comboPartition.SelectedIndexChanged += new System.EventHandler(this.comboPartitions_SelectedIndexChanged);
             // 
             // comboRebarNumber
             // 
@@ -97,7 +98,7 @@
             this.buttonChange.TabIndex = 6;
             this.buttonChange.Text = "Change";
             this.buttonChange.UseVisualStyleBackColor = true;
-            this.buttonChange.Click += new System.EventHandler(this.buttonChange_Click);
+            this.buttonChange.Click += new System.EventHandler(this.buttonChange_Clicked);
             // 
             // buttonClose
             // 
@@ -108,7 +109,7 @@
             this.buttonClose.TabIndex = 7;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Clicked);
             // 
             // FormRenumber
             // 
@@ -129,6 +130,7 @@
             this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
