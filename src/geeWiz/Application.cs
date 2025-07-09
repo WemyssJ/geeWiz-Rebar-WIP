@@ -259,9 +259,15 @@ namespace geeWiz
             #endregion
 
             #region RebarRenumber
-            // Panel 3 - Add Cmd_About button
+            // Panel 3 - Add button
             ribbonPanel3.Ext_AddPushButton<geeWiz.Cmds_Rebar.Cmd_Renumber>(
                 buttonName: "Renumber", availability: gAva.Document);
+            #endregion
+
+            #region RebarRenumber
+            // Panel 3 - Add button
+            ribbonPanel3.Ext_AddPushButton<geeWiz.Cmds_Rebar.Cmd_FreezeRebar>(
+                buttonName: "Freeze Rebar", availability: gAva.Document);
             #endregion
 
             #region Pulldown - RebarVisiblity

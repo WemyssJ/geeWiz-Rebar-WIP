@@ -60,6 +60,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Microsoft.VisualBasic" />
       <Reference Include="Xceed.Wpf.AvalonDock">
         <HintPath>C:\Program Files\Autodesk\Revit $(RevitVersion)\Xceed.Wpf.AvalonDock.dll</HintPath>
       </Reference>
