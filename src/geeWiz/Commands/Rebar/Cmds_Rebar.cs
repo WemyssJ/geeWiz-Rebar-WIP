@@ -1,4 +1,4 @@
-﻿// Revit API
+// Revit API
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
 using geeWiz.RebarUtils;
@@ -14,9 +14,6 @@ namespace geeWiz.Cmds_Rebar
 {
     #region Cmd_Renumber
 
-    /// <summary>
-    /// Changes Rebar Number by swapping two numbers safely or renaming if target not taken
-    /// </summary>
     [Transaction(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
     public class Cmd_Renumber : IExternalCommand
@@ -44,8 +41,8 @@ namespace geeWiz.Cmds_Rebar
 
             using (FormRenumber form1 = new FormRenumber(doc, sortedPartitions, rebarNumbers))
             {
-                // ✅ Prepopulate if a single Rebar is selected
                 var selectedIds = uidoc.Selection.GetElementIds();
+
                 if (selectedIds.Count == 1)
                 {
                     Element selectedElement = doc.GetElement(selectedIds.First());
@@ -80,10 +77,9 @@ namespace geeWiz.Cmds_Rebar
 
                 string[] currentNumbers = rebarNumbers[partition];
 
-                // If toNumber does NOT exist, just rename fromNumber -> toNumber directly
                 if (!currentNumbers.Contains(toNumber.ToString()))
                 {
-                    IList<Autodesk.Revit.DB.ElementId> changedIds = new List<Autodesk.Revit.DB.ElementId>();
+                    IList<ElementId> changedIds = new List<ElementId>();
                     using (Transaction t = new Transaction(doc, "Rename rebar number"))
                     {
                         t.Start();
@@ -92,15 +88,15 @@ namespace geeWiz.Cmds_Rebar
                         t.Commit();
                     }
 
-                    message = $"Changed rebar number {fromNumber} to {toNumber}. Affected IDs: " +
-                              string.Join(", ", changedIds.Select(id => id.ToString()));
                     uidoc.Selection.SetElementIds(changedIds.ToList());
+
+                    TaskDialog.Show("Rebar Renumbered",
+                        $"Successfully Renumbered Rebar (BM) {fromNumber} → {toNumber} in partition \"{partition}\".\n");
                 }
                 else
                 {
-                    // Swap needed — safe 3-step process using temp number
                     int tempNumber = GetUnusedRebarNumber(currentNumbers);
-                    IList<Autodesk.Revit.DB.ElementId> changedIds = new List<Autodesk.Revit.DB.ElementId>();
+                    IList<ElementId> changedIds = new List<ElementId>();
 
                     using (Transaction t1 = new Transaction(doc, "Step 1: Temp renumber"))
                     {
@@ -126,9 +122,10 @@ namespace geeWiz.Cmds_Rebar
                         t3.Commit();
                     }
 
-                    message = $"Swapped rebar numbers {fromNumber} and {toNumber}. Affected IDs: " +
-                              string.Join(", ", changedIds.Select(id => id.ToString()));
                     uidoc.Selection.SetElementIds(changedIds.ToList());
+
+                    TaskDialog.Show("Rebar Numbers Swapped",
+                        $"Successfully Swapped Rebar Numbers (BM) {fromNumber} ↔ {toNumber} in partition \"{partition}\".\n");
                 }
             }
 
@@ -145,7 +142,7 @@ namespace geeWiz.Cmds_Rebar
                 list.Add(Enumerable.Range(range.Low, range.High - range.Low + 1).ToArray());
             }
             int[] numbers = list.SelectMany(i => i).ToArray();
-            return numbers.Select(i => i.ToString()).ToArray();
+            return numbers.Distinct().Select(i => i.ToString()).ToArray();
         }
 
         private static int GetUnusedRebarNumber(string[] existingNumbers)
@@ -159,14 +156,10 @@ namespace geeWiz.Cmds_Rebar
             return temp;
         }
     }
-
     #endregion
 
     #region Cmd_FreezeRebar
 
-    /// <summary>
-    /// Changes Rebar Number by swapping two numbers safely or renaming if target not taken
-    /// </summary>
     [Transaction(TransactionMode.Manual)]
     public class Cmd_FreezeRebar : IExternalCommand
     {
@@ -178,7 +171,6 @@ namespace geeWiz.Cmds_Rebar
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
 
-            // Filter for all rebar elements
             FilteredElementCollector collector = new FilteredElementCollector(doc)
                 .OfClass(typeof(Rebar));
 
@@ -213,5 +205,3 @@ namespace geeWiz.Cmds_Rebar
     }
     #endregion
 }
-
-
