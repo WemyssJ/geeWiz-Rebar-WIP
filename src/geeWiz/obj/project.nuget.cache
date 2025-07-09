@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "dgSpecHash": "Bd4wMUURJUE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\wemyssj\\Downloads\\geeWiz-Rebar-WIP-main\\src\\geeWiz\\geeWiz.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\wemyssj\\.nuget\\packages\\closedxml\\0.104.2\\closedxml.0.104.2.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\closedxml.parser\\1.2.0\\closedxml.parser.1.2.0.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\documentformat.openxml\\3.1.1\\documentformat.openxml.3.1.1.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\documentformat.openxml.framework\\3.1.1\\documentformat.openxml.framework.3.1.1.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\excelnumberformat\\1.1.0\\excelnumberformat.1.1.0.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\jetbrains.annotations\\2024.3.0\\jetbrains.annotations.2024.3.0.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.1\\microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\nice3point.revit.api.adwindows\\2023.1.60\\nice3point.revit.api.adwindows.2023.1.60.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\nice3point.revit.api.revitapi\\2023.1.60\\nice3point.revit.api.revitapi.2023.1.60.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\nice3point.revit.api.revitapiui\\2023.1.60\\nice3point.revit.api.revitapiui.2023.1.60.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\nice3point.revit.api.uiframework\\2023.1.60\\nice3point.revit.api.uiframework.2023.1.60.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\nice3point.revit.build.tasks\\3.0.1\\nice3point.revit.build.tasks.3.0.1.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\nice3point.revit.extensions\\2023.4.1\\nice3point.revit.extensions.2023.4.1.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\nice3point.revit.toolkit\\2023.3.0\\nice3point.revit.toolkit.2023.3.0.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\rbush\\4.0.0\\rbush.4.0.0.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\sixlabors.fonts\\1.0.0\\sixlabors.fonts.1.0.0.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\wemyssj\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.0\\system.runtime.compilerservices.unsafe.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
