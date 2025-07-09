@@ -229,6 +229,15 @@ namespace geeWiz.Resources.Files {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copies Rebar Number (BM) to Schedule Mark as a backup. Acts as a check to stop BMs changing on already issued drawings.
+        /// </summary>
+        internal static string Rebar_FreezeRebar {
+            get {
+                return ResourceManager.GetString("Rebar_FreezeRebar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Changes &apos;Rebar Number&apos; (BM) based on user input.
         /// </summary>
         internal static string Rebar_Renumber {

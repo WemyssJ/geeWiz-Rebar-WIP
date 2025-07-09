@@ -222,6 +222,9 @@ Exports all sheet names and numbers to the template.</value>
   <data name="RebarVisibility_SetUnobscuredInView" xml:space="preserve">
     <value>Sets all rebar to be unobscured in view</value>
   </data>
+  <data name="Rebar_FreezeRebar" xml:space="preserve">
+    <value>Copies Rebar Number (BM) to Schedule Mark as a backup. Acts as a check to stop BMs changing on already issued drawings</value>
+  </data>
   <data name="Rebar_Renumber" xml:space="preserve">
     <value>Changes 'Rebar Number' (BM) based on user input</value>
   </data>
